@@ -38,3 +38,6 @@ body {
   background-color: #fff;
   padding: 5px;
 }
+#chat-input {
+  width: 200px;
+}
