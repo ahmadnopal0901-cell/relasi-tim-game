@@ -1,7 +1,11 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f8ff;
+  font-family: 'Comic Sans MS', Arial, sans-serif;
+  background-color: #ffe4e1;
   text-align: center;
+}
+
+h1 {
+  color: #ff1493;
 }
 
 #cards-container {
@@ -17,27 +21,37 @@ body {
   height: 60px;
   font-size: 2rem;
   margin: 5px;
-  background-color: #fff;
-  border: 2px solid #000;
+  background-color: #fff0f5;
+  border: 2px solid #ff69b4;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   user-select: none;
+  transition: transform 0.2s;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
 }
 
 #chat-container {
   margin-top: 20px;
 }
 #chat-box {
-  border: 1px solid #000;
+  border: 2px solid #ff1493;
   height: 100px;
   width: 300px;
   margin: auto;
   overflow-y: auto;
-  background-color: #fff;
+  background-color: #fff0f5;
   padding: 5px;
 }
 #chat-input {
   width: 200px;
+}
+#leaderboard {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #ff1493;
 }
