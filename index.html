@@ -13,9 +13,7 @@
   <!-- Setup pemain -->
   <div id="player-setup">
     <h2>Setup Pemain</h2>
-    <div id="players">
-      <!-- Input nama dan sekolah tiap pemain akan ditambahkan via JS -->
-    </div>
+    <div id="players"></div>
     <button id="add-player">Tambah Pemain</button>
     <button id="start-game">Mulai Game</button>
   </div>
@@ -33,10 +31,13 @@
       <button id="chat-send">Kirim</button>
     </div>
   </div>
-
   <!-- Audio -->
-  <audio id="bg-music" loop src="assets/music/background-music.mp3"></audio>
-  <audio id="click-sound" src="assets/sound/click-card.wav"></audio>
+  <audio id="bg-music" loop autoplay>
+    <source src="assets/music/background-music.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="click-sound">
+    <source src="assets/sound/click-card.wav" type="audio/wav">
+  </audio>
 
   <script src="script.js"></script>
 </body>
