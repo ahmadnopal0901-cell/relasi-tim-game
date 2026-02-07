@@ -1,7 +1,5 @@
-// Emoji kartu
 const emojis = ['🤓','🎉','🧠','👁️','🥶','🍞','👀','🔐','👍','🤝','🤳','✍️','🫵'];
 
-// Player setup
 let players = [];
 let currentPlayer = 0;
 let timer = 0;
@@ -41,12 +39,13 @@ startBtn.addEventListener('click', ()=>{
   startTurn();
 });
 
-// Background music
+// Background music & click
 const bgMusic = document.getElementById('bg-music');
-bgMusic.play().catch(()=>{}); // autoplay mungkin diblokir di browser
+bgMusic.volume = 0.3;
+const clickSound = document.getElementById('click-sound');
 
-// Flip kartu dan game logic
 let first=null, second=null;
+
 function startTurn(){
   document.getElementById('timer').innerText = 'Waktu: 0 detik';
   timer = 0;
@@ -54,7 +53,7 @@ function startTurn(){
   interval = setInterval(()=>{
     timer++;
     document.getElementById('timer').innerText = `Waktu: ${timer} detik`;
-    if(timer>=120){ // 2 menit
+    if(timer>=120){
       clearInterval(interval);
       nextPlayer();
     }
@@ -72,7 +71,6 @@ function nextPlayer(){
   }
 }
 
-// Render kartu
 function renderCards(){
   const container = document.getElementById('cards-container');
   container.innerHTML='';
@@ -90,7 +88,7 @@ function renderCards(){
 }
 
 function flipCard(){
-  document.getElementById('click-sound').play();
+  clickSound.play();
   if(!first){
     first=this;
     first.innerText=first.dataset.emoji;
