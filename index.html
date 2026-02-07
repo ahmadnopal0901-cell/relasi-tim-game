@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Relasi Tim Game</title>
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
@@ -9,16 +10,23 @@
 <body>
   <h1>Relasi Tim Game</h1>
 
+  <!-- Setup pemain -->
   <div id="player-setup">
     <h2>Setup Pemain</h2>
-    <div id="players"></div>
+    <div id="players">
+      <!-- Input nama dan sekolah tiap pemain akan ditambahkan via JS -->
+    </div>
+    <button id="add-player">Tambah Pemain</button>
     <button id="start-game">Mulai Game</button>
   </div>
 
+  <!-- Area game -->
   <div id="game" style="display:none;">
-    <div id="timer">Waktu: 0</div>
+    <div id="timer">Waktu: 0 detik</div>
     <div id="leaderboard"></div>
     <div id="cards-container"></div>
+
+    <!-- Chat antar pemain -->
     <div id="chat-container">
       <div id="chat-box"></div>
       <input type="text" id="chat-input" placeholder="Kirim pesan..." />
@@ -26,6 +34,7 @@
     </div>
   </div>
 
+  <!-- Audio -->
   <audio id="bg-music" loop src="assets/music/background-music.mp3"></audio>
   <audio id="click-sound" src="assets/sound/click-card.wav"></audio>
 
