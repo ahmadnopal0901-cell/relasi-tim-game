@@ -1,0 +1,40 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f8ff;
+  text-align: center;
+}
+
+#cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.card {
+  width: 60px;
+  height: 60px;
+  font-size: 2rem;
+  margin: 5px;
+  background-color: #fff;
+  border: 2px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+#chat-container {
+  margin-top: 20px;
+}
+#chat-box {
+  border: 1px solid #000;
+  height: 100px;
+  width: 300px;
+  margin: auto;
+  overflow-y: auto;
+  background-color: #fff;
+  padding: 5px;
+}
