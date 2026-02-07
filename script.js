@@ -4,22 +4,53 @@ const emojis = ['🤓','🎉','🧠','👁️','🥶','🍞','👀','🔐','👍
 // Player setup
 let players = [];
 let currentPlayer = 0;
-const totalPlayers = 2; // bisa diubah sesuai setup
 let timer = 0;
 let interval;
+let totalPlayers = 0;
 
-document.getElementById('start-game').addEventListener('click', () => {
-  for(let i=0;i<totalPlayers;i++){
-    players.push({name:'Player '+(i+1), score:0});
+const playerContainer = document.getElementById('players');
+const addBtn = document.getElementById('add-player');
+const startBtn = document.getElementById('start-game');
+
+addBtn.addEventListener('click', ()=>{
+  if(players.length>=7){ alert('Maksimal 7 pemain'); return;}
+  const div = document.createElement('div');
+  div.innerHTML = `
+    Nama: <input type="text" class="player-name" placeholder="Player ${players.length+1}" required />
+    Sekolah: <input type="text" class="player-school" placeholder="SD/SMP/SMA/SMK/Kuliah" required />
+    Kelas: <input type="text" class="player-class" placeholder="Kelas" required />
+  `;
+  playerContainer.appendChild(div);
+  players.push({});
+});
+
+startBtn.addEventListener('click', ()=>{
+  const names = document.querySelectorAll('.player-name');
+  const schools = document.querySelectorAll('.player-school');
+  const classes = document.querySelectorAll('.player-class');
+  for(let i=0;i<players.length;i++){
+    if(!names[i].value || !schools[i].value || !classes[i].value){ alert('Isi semua data pemain!'); return;}
+    players[i].name = names[i].value;
+    players[i].school = schools[i].value;
+    players[i].class = classes[i].value;
+    players[i].score = 0;
   }
+  totalPlayers = players.length;
   document.getElementById('player-setup').style.display='none';
+  document.getElementById('game').style.display='block';
   startTurn();
 });
 
+// Background music
+const bgMusic = document.getElementById('bg-music');
+bgMusic.play().catch(()=>{}); // autoplay mungkin diblokir di browser
+
+// Flip kartu dan game logic
+let first=null, second=null;
 function startTurn(){
-  document.getElementById('game').style.display='block';
-  document.getElementById('timer').innerText = `Waktu: 0`;
-  timer=0;
+  document.getElementById('timer').innerText = 'Waktu: 0 detik';
+  timer = 0;
+  renderCards();
   interval = setInterval(()=>{
     timer++;
     document.getElementById('timer').innerText = `Waktu: ${timer} detik`;
@@ -28,15 +59,15 @@ function startTurn(){
       nextPlayer();
     }
   },1000);
-  renderCards();
 }
 
 function nextPlayer(){
   currentPlayer++;
-  if(currentPlayer>=players.length){
+  if(currentPlayer>=totalPlayers){
     alert('Semua giliran selesai!');
+    return;
   }else{
-    alert(`Giliran berikutnya: ${players[currentPlayer].name}`);
+    alert(`Giliran: ${players[currentPlayer].name}`);
     startTurn();
   }
 }
@@ -48,18 +79,16 @@ function renderCards(){
   const cardSet = emojis.slice(0,6);
   const pairSet = [...cardSet, ...cardSet];
   pairSet.sort(()=>0.5-Math.random());
-  pairSet.forEach((emoji,i)=>{
+  pairSet.forEach((emoji)=>{
     const card = document.createElement('div');
     card.className='card';
-    card.dataset.emoji=emoji;
+    card.dataset.emoji = emoji;
     card.innerText='❓';
     card.addEventListener('click', flipCard);
     container.appendChild(card);
   });
 }
 
-// Flip kartu
-let first=null, second=null;
 function flipCard(){
   document.getElementById('click-sound').play();
   if(!first){
@@ -92,5 +121,12 @@ function updateLeaderboard(){
   });
 }
 
-// Background music autoplay
-document.getElementById('bg-music').play().catch(()=>{});
+// Chat antar pemain
+const chatBox = document.getElementById('chat-box');
+document.getElementById('chat-send').addEventListener('click', ()=>{
+  const input = document.getElementById('chat-input');
+  if(input.value.trim()==='') return;
+  chatBox.innerHTML += `<div><b>${players[currentPlayer].name}:</b> ${input.value}</div>`;
+  chatBox.scrollTop = chatBox.scrollHeight;
+  input.value='';
+});
